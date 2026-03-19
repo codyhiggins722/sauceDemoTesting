@@ -1,0 +1,6 @@
+node_modules/
+test/.DS_Store
+test/pageobjects/login.page.js
+test/pageobjects/page.js
+test/pageobjects/secure.page.js
+test/specs/test.e2e.js
