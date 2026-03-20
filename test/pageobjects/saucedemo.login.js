@@ -1,13 +1,6 @@
 import { $ } from '@wdio/globals'
 import Site from './saucedemo.base';
-
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class SauceLog extends Site {
-    /**
-     * define selectors using getter methods
-     */
     get inputUsername () {
         return $('#user-name');
     }
@@ -19,20 +12,11 @@ class SauceLog extends Site {
     get btnSubmit () {
         return $('#login-button');
     }
-
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
     async login (username, password) {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
     }
-
-    /**
-     * overwrite specific options to adapt it to page object
-     */
     open () {
         return super.open('login');
     }
