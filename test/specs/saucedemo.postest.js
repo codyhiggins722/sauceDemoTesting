@@ -4,7 +4,7 @@ import HomePage from '../pageobjects/saucedemo.logconf.js'
 import LogoutProcess from '../pageobjects/saucedemo.logout.js'
 
 describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
+    it('should login with valid credentials for the postive test. For the negative test, it should alert that it is an un recognized password.', async () => {
         await SauceLog.open()
 //Postive Test for All Users------------------------
         await SauceLog.login('standard_user', 'secret_sauce');
