@@ -1,42 +1,23 @@
 import { expect } from '@wdio/globals'
-import SauceLog from '../pageobjects/saucedemo.login.js'
+import SauceLog from '../pageobjects/saucedemo.siteaccess.js'
 import HomePage from '../pageobjects/saucedemo.logconf.js'
-import LogoutProcess from '../pageobjects/saucedemo.logout.js'
 
 describe('My Login application', () => {
-    it('should login with valid credentials for the postive test. For the negative test, it should alert that it is an un recognized password.', async () => {
+    SauceLog.users.forEach((user) => {
+    it(`should login with valid credentials for, log out, then fail to log in with missing password: ${user.username}`, async () => {
         await SauceLog.open()
 //Postive Test for All Users------------------------
-        await SauceLog.login('standard_user', 'secret_sauce');
-        await expect(HomePage.landingPage).toBeExisting();
-        await LogoutProcess.logout();
-        await SauceLog.login('locked_out_user', 'secret_sauce');
-        await expect(HomePage.sadFaceButGood).toBeExisting();
-        await SauceLog.login('problem_user', 'secret_sauce');
-        await expect(HomePage.landingPage).toBeExisting();
-        await LogoutProcess.logout();
-        await SauceLog.login('performance_glitch_user', 'secret_sauce');
-        await expect(HomePage.landingPage).toBeExisting();
-        await LogoutProcess.logout();
-        await SauceLog.login('error_user', 'secret_sauce');
-        await expect(HomePage.landingPage).toBeExisting();
-        await LogoutProcess.logout();
-        await SauceLog.login('visual_user', 'secret_sauce');
-        await expect(HomePage.landingPage).toBeExisting();
-        await LogoutProcess.logout();
+        await SauceLog.login(user.username, 'secret_sauce');
+                if (user.shouldAccess) {
+                    await expect(HomePage.landingPage).toBeExisting();
+                    await SauceLog.logout();
+                    } else {
+                        await expect(HomePage.sadFaceButGood).toBeExisting();
+                        await browser.refresh();
+                    }
         //Negative Test for all users------------------------
-        await SauceLog.login('standard_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        await SauceLog.login('locked_out_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        await SauceLog.login('problem_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        await SauceLog.login('performance_glitch_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        await SauceLog.login('error_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        await SauceLog.login('visual_user', '');
-        await expect(HomePage.needsPassword).toBeExisting();
-        
-    })
+        await SauceLog.login(user.username, '');
+        await expect(HomePage.needsPassword).toBeExisting();           
+        });
+    });
 })
