@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
-import Page from './saucedemo.base';
-class HomePage extends Page {
+import Site from './saucedemo.base';
+class HomePage extends Site {
     get landingPage () {
         return $('//span[contains(text(),"Products")]');
     }
