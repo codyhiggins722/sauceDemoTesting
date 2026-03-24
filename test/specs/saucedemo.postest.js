@@ -11,6 +11,7 @@ describe('My Login application', () => {
                 if (user.shouldAccess) {
                     await expect(HomePage.landingPage).toBeExisting();
                     await SauceLog.logout();
+                    await SauceLog.inputUsername.waitForExist({timeout: 3000});
                     } else {
                         await expect(HomePage.sadFaceButGood).toBeExisting();
                         await browser.refresh();
