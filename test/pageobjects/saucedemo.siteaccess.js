@@ -3,7 +3,6 @@ import { expect } from '@wdio/globals'
 import HomePage from './saucedemo.logconf'
 import Site from './saucedemo.base';
 class SauceLog extends Site {
-    //---selectors------------
     get inputUsername () {
         return $('#user-name');
     }
@@ -19,7 +18,6 @@ class SauceLog extends Site {
     get logoutBtn(){
         return $('#logout_sidebar_link')
     }
-    //-------------------------------
     users = [
         {username: 'standard_user', shouldAccess: true},
         {username: 'locked_out_user', shouldAccess: false},
@@ -28,7 +26,6 @@ class SauceLog extends Site {
         {username: 'error_user', shouldAccess: true},
         {username: 'visual_user', shouldAccess: true}
     ];
-    //---------functions--------------
     async login (username, password) {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
