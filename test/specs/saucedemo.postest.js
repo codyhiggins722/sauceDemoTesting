@@ -15,6 +15,7 @@ describe('My Login application', () => {
                     } else {
                         await expect(HomePage.sadFaceButGood).toBeExisting();
                         await browser.refresh();
+                        await SauceLog.inputUsername.waitForExist({timeout: 3000});
                     }
         //Negative Test for all users------------------------
         await SauceLog.login(user.username, '');
